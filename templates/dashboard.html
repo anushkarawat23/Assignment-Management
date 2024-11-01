@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2>Student Dashboard</h2>
+    <table border="1">
+        <tr>
+            <th>Serial No.</th>
+            <th>Assignment Name</th>
+            <th>Role</th>
+            <th>Deadline Date</th>
+            <th>Action</th>
+        </tr>
+        {% for assignment in assignments %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ assignment.assignment_name }}</td>
+            <td>{{ assignment.role }}</td>
+            <td>{{ assignment.deadline_date }}</td>
+            <td>
+                {% if assignment.status == 'Pending' %}
+                    <a href="{{ url_for('upload_assignment', assignment_id=assignment.id) }}">Pending</a>
+                {% else %}
+                    Submitted
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
